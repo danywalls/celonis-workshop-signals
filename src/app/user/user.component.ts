@@ -2,7 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
-  Input,
+  Input, OnInit,
   Output, signal,
 } from '@angular/core';
 import {User} from '../services/users.service';
@@ -19,17 +19,26 @@ import {getRandomTime} from '../utils/utils';
   template: `
     <div (click)="selectUser()" class="user" [ngClass]="selected ? 'selected' : '' ">
       <span >{{ user.name }}</span>
-      <pre>{{message()}}</pre>
+
+       <pre>{{message()}}</pre>
     </div>
   `
 })
-export class UserComponent  {
+export class UserComponent implements OnInit  {
   @Output() selectedUser = new EventEmitter<User>();
   @Input() user!: User;
 
   selected = false;
   message = signal<string>('🙏🏾')
-  constructor() {
+
+
+  ngOnInit(): void {
+    this.setUserTimout()
+  }
+
+  setUserTimout() {
+    this.user.time = getRandomTime()
+
     setTimeout( () => {
       if(this.selected) {
         this.message.set('😎')
@@ -39,7 +48,8 @@ export class UserComponent  {
       }
 
 
-    }, getRandomTime())
+    }, this.user.time)
+
   }
 
  selectUser() {

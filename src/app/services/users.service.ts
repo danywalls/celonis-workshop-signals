@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 export type User = {
   name: string;
   avatar: string;
-
+  time: number;
 }
 
 @Injectable({providedIn: 'root'})
