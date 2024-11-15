@@ -1,7 +1,7 @@
 import {
   ChangeDetectionStrategy,
-  Component,
-  EventEmitter, input,
+  Component, computed, effect,
+  EventEmitter, input, model,
   OnInit,
   Output, signal,
 } from '@angular/core';
@@ -24,21 +24,13 @@ import {getRandomTime} from '../utils/utils';
     </div>
   `
 })
-export class UserComponent implements OnInit  {
-  @Output() selectedUser = new EventEmitter<User>();
-  user =  input.required<User>();
-
+export class UserComponent   {
+  user =  model.required<User>();
+  userWithTime = computed(() => ( { ...this.user(), time: getRandomTime()}));
   selected = false;
   message = signal<string>('🙏🏾')
 
-
-  ngOnInit(): void {
-      this.setUserTimout()
-  }
-
-  setUserTimout() {
-    this.user().time = getRandomTime()
-    this.selectedUser.emit(this.user());
+  effectEmoji = effect(() => {
     setTimeout( () => {
       if(this.selected) {
         this.message.set('😎')
@@ -46,15 +38,14 @@ export class UserComponent implements OnInit  {
       else {
         this.message.update(v => '😭');
       }
+    }, this.userWithTime().time)
+  })
 
 
-    }, this.user().time)
-
-  }
 
  selectUser() {
     this.selected = !this.selected;
     this.message.update(() => 'Thanks!');
-    this.selectedUser.emit(this.user())
+    this.user.update( u => ({ ...this.userWithTime() }))
   }
 }

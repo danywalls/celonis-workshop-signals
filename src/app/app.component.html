@@ -6,7 +6,7 @@
 
 <div class="container flex flex-col items-center">
   @for(user of users$ | async; track user){
-    <user [user]="user" (selectedUser)="updateUsersSelected(user)">
+    <user [user]="user" (userChange)="updateUsersSelected(user)">
 
     </user>
 
