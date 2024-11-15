@@ -1,11 +1,9 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   EventEmitter,
-  inject,
   Input,
-  Output,
+  Output, signal,
 } from '@angular/core';
 import {User} from '../services/users.service';
 import {NgClass} from '@angular/common';
@@ -21,32 +19,32 @@ import {getRandomTime} from '../utils/utils';
   template: `
     <div (click)="selectUser()" class="user" [ngClass]="selected ? 'selected' : '' ">
       <span >{{ user.name }}</span>
-      <pre>{{message}}</pre>
+      <pre>{{message()}}</pre>
     </div>
   `
 })
 export class UserComponent  {
   @Output() selectedUser = new EventEmitter<User>();
   @Input() user!: User;
-  private cdr = inject(ChangeDetectorRef);
+
   selected = false;
-  message = '🙏🏾'
+  message = signal<string>('🙏🏾')
   constructor() {
     setTimeout( () => {
       if(this.selected) {
-        this.message = '😎'
+        this.message.set('😎')
       }
       else {
-        this.message = '😭';
+        this.message.update(v => '😭');
       }
-      this.cdr.detectChanges();
+
 
     }, getRandomTime())
   }
 
  selectUser() {
     this.selected = !this.selected;
-    this.message = 'Thanks!';
+    this.message.update(() => 'Thanks!');
     this.selectedUser.emit(this.user)
   }
 }
