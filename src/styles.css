@@ -1,1 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
+
+
+html, body {
+  font-family: "Cascadia Code", monospace;
+}
+
+header {
+  text-align: center;
+}
+
+.user.selected {
+  background-color: rebeccapurple;
+  color: white;
+  border: 1px solid white;
+}
+
+.user {
+  cursor: pointer;
+  border: 1px solid darkslateblue;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 60px;
+  padding: 10px;
+}
