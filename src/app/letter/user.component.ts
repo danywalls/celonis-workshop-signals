@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output,} from '@angular/core';
+import {Component, EventEmitter, Input, Output,} from '@angular/core';
 import {User} from '../services/users.service';
 import {NgClass} from '@angular/common';
 import {getRandomTime} from '../utils/utils';
