@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output,} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output,} from '@angular/core';
 import {User} from '../services/users.service';
 import {NgClass} from '@angular/common';
 import {getRandomTime} from '../utils/utils';
@@ -6,6 +6,7 @@ import {getRandomTime} from '../utils/utils';
 @Component({
   selector: 'user',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     NgClass
   ],
@@ -16,9 +17,10 @@ import {getRandomTime} from '../utils/utils';
     </div>
   `
 })
-export class UserComponent {
+export class UserComponent  {
   @Output() selectedUser = new EventEmitter<User>();
   @Input() user!: User;
+
   selected = false;
   message = '🙏🏾'
   constructor() {

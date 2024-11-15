@@ -8,7 +8,5 @@
   @for(user of users$ | async; track user){
     <user [user]="user" (selectedUser)="updateUsersSelected(user)"></user>
   }
-
-
 </div>
 
