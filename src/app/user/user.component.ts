@@ -33,12 +33,15 @@ export class UserComponent implements OnInit  {
 
 
   ngOnInit(): void {
-    this.setUserTimout()
+    setTimeout( () => {
+      this.setUserTimout()
+    }, 1000)
+
   }
 
   setUserTimout() {
     this.user.time = getRandomTime()
-
+    this.selectedUser.emit(this.user);
     setTimeout( () => {
       if(this.selected) {
         this.message.set('😎')
