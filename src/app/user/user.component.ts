@@ -38,7 +38,8 @@ export class UserComponent implements OnInit  {
 
   setUserTimout() {
     this.user.time = getRandomTime()
-
+    // I want emit the new time.
+    //this.selectedUser.emit(this.user);
     setTimeout( () => {
       if(this.selected) {
         this.message.set('😎')
