@@ -2,8 +2,8 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter, input,
-  Input, OnInit,
-  Output, Signal, signal,
+  OnInit,
+  Output, signal,
 } from '@angular/core';
 import {User} from '../services/users.service';
 import {NgClass} from '@angular/common';
