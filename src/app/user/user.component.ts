@@ -1,9 +1,9 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  EventEmitter,
+  EventEmitter, input,
   Input, OnInit,
-  Output, signal,
+  Output, Signal, signal,
 } from '@angular/core';
 import {User} from '../services/users.service';
 import {NgClass} from '@angular/common';
@@ -18,7 +18,7 @@ import {getRandomTime} from '../utils/utils';
   ],
   template: `
     <div (click)="selectUser()" class="user" [ngClass]="selected ? 'selected' : '' ">
-      <span >{{ user.name }}</span>
+      <span >{{ user().name }}</span>
 
        <pre>{{message()}}</pre>
     </div>
@@ -26,22 +26,19 @@ import {getRandomTime} from '../utils/utils';
 })
 export class UserComponent implements OnInit  {
   @Output() selectedUser = new EventEmitter<User>();
-  @Input() user!: User;
+  user =  input.required<User>();
 
   selected = false;
   message = signal<string>('🙏🏾')
 
 
   ngOnInit(): void {
-    setTimeout( () => {
       this.setUserTimout()
-    }, 1000)
-
   }
 
   setUserTimout() {
-    this.user.time = getRandomTime()
-    this.selectedUser.emit(this.user);
+    this.user().time = getRandomTime()
+    this.selectedUser.emit(this.user());
     setTimeout( () => {
       if(this.selected) {
         this.message.set('😎')
@@ -51,13 +48,13 @@ export class UserComponent implements OnInit  {
       }
 
 
-    }, this.user.time)
+    }, this.user().time)
 
   }
 
  selectUser() {
     this.selected = !this.selected;
     this.message.update(() => 'Thanks!');
-    this.selectedUser.emit(this.user)
+    this.selectedUser.emit(this.user())
   }
 }
