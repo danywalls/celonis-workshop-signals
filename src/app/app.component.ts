@@ -1,13 +1,12 @@
 import {Component, inject} from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import {UserComponent} from './letter/user.component';
+import {UserComponent} from './user/user.component';
 import {User, UsersService} from './services/users.service';
 import {AsyncPipe} from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, UserComponent, AsyncPipe],
+  imports: [UserComponent, AsyncPipe],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
