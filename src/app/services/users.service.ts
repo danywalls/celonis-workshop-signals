@@ -1,9 +1,10 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {map} from 'rxjs';
 export type User = {
   name: string;
   avatar: string;
-  time: number;
+
 }
 
 @Injectable({providedIn: 'root'})
@@ -11,6 +12,15 @@ export class UsersService {
 
   http = inject(HttpClient);
 
-  users$ = this.http.get<User[]>('https://67375400aafa2ef222336b4c.mockapi.io/users')
+  users$ = this.http.get<User[]>('https://fakestoreapi.com/users').pipe(
+    // dont do it
+    map((res: any[]) =>{
+        return  res.map(user => ({
+
+          name: `${user.name.firstname} ${user.name.lastname}`
+        }))
+      }
+    )
+  )
 
 }
