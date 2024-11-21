@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs';
 export type User = {
   name: string;
+  time?: number;
 }
 
 @Injectable({providedIn: 'root'})
@@ -14,7 +15,6 @@ export class UsersService {
     // dont do it
     map((res: any[]) =>{
         return  res.map(user => ({
-
           name: `${user.name.firstname} ${user.name.lastname}`
         }))
       }
