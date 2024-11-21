@@ -3,7 +3,6 @@ import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs';
 export type User = {
   name: string;
-  avatar: string;
 
 }
 
